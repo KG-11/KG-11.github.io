@@ -1,1 +1,72 @@
-Hello
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/addons/p5.sound.min.js"></script>
+  <style>
+    html, body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+}
+
+    </style>
+    <meta charset="utf-8" />
+
+  </head>
+  <body>
+    <script>
+      let recording;
+let lat;
+let lng;
+
+let latStart = 12.400;
+let latStop = 15.600;
+
+let lngStart = 73.800;
+let lngStop = 85.900;
+
+function preload() {
+   recording = loadSound('zoe.mpeg');
+}
+
+function setup() {
+  createCanvas(400, 400);
+
+  // register event handler to position anytime it changes
+  if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(updatePosition);
+  } else {
+    alert("navigator.geolocation is not available");
+  }
+  
+  // song.play();
+
+  
+}
+
+function updatePosition(position) {
+  
+  lat = position.coords.latitude;
+  lng = position.coords.longitude;
+
+  background(0);
+  fill(255);
+  background(0);
+  latf = nf(lat)
+  longf = nf(lng)
+  text(latf + ' ' + longf,200,180);
+  if ((lat > latStart && lat < latStop ) && (lng > lngStart && lng < lngStop)){
+    getAudioContext().resume();
+     recording.play();
+    //text('the tree around you speaks.', 200,200)
+  }
+  else{
+    text('the tree around you do not yet speak.', 200,200)
+  }
+}
+    </script>
+  </body>
+</html>
