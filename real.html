@@ -101,6 +101,7 @@ body {
     }
 
     function error(err) {
+        document.getElementById('accuracy_ml').innerHTML = `ERROR(${err.code}): ${err.message}`;
         console.warn(`ERROR(${err.code}): ${err.message}`);
     }
 
