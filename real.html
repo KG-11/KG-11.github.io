@@ -44,7 +44,9 @@ body {
 <body>
     <div id="map" class="container"></div>
     <div class="pane">
+        <a href="javascript:move();">Move</a>
         <a href="./index.html">Index3</a>
+        <h6 id="accuracy_ml"></h6>
     </div>
     <script>
     // Spoof Location
@@ -95,6 +97,7 @@ body {
         console.log(`Latitude : ${crd.latitude}`);
         console.log(`Longitude: ${crd.longitude}`);
         console.log(`More or less ${crd.accuracy} meters.`);
+        document.getElementById('accuracy_ml').innerHTML = `More or less ${crd.accuracy} meters.`;
         navigator.geolocation.watchPosition(updatePosition);
     }
 
@@ -106,7 +109,7 @@ body {
         userLat = position.coords.latitude;
         userLon = position.coords.longitude;
         // i++;
-        marker = new maptalks.Circle([userLon, userLat], 50, {
+        marker = new maptalks.Circle([userLon, userLat], 5, {
             'symbol': {
                 lineColor: '#34495e',
                 lineWidth: 0,
