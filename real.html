@@ -97,7 +97,7 @@ body {
         console.log(`Longitude: ${crd.longitude}`);
         console.log(`More or less ${crd.accuracy} meters.`);
         document.getElementById('accuracy_ml').innerHTML = `More or less ${crd.accuracy} meters.`;
-        navigator.geolocation.watchPosition(updatePosition);
+        navigator.geolocation.watchPosition(updatePosition, error);
     }
 
     function error(err) {
