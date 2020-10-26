@@ -53,7 +53,7 @@ body {
     // var latitude = 13.10885;
     // var longitude = 80.18646;
 
-    // let i = 0;
+    let i = 0;
     var marker;
     var layer;
     var GPS_OPTIONS = {
@@ -108,8 +108,9 @@ body {
     function updatePosition(position) {
         userLat = position.coords.latitude;
         userLon = position.coords.longitude;
-        // i++;
-        marker = new maptalks.Circle([userLon, userLat], 50, {
+	i++;
+	    document.getElementById('accuracy_ml').innerHTML= `${i} :  More or less ${position.coords.accuracy} meters.`;
+        marker = new maptalks.Circle([userLon, userLat], 500, {
             'symbol': {
                 lineColor: '#34495e',
                 lineWidth: 0,
