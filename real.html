@@ -211,12 +211,11 @@ actionButtons button {
 
         dist = map.computeLength([userLon, userLat], maptalksConfig.centerCoords);
         console.log(`Distance ${dist}`);
-        if (dist >= 500) {
+        if (dist <= 5000) {
             navigator.geolocation.watchPosition(updatePosition, error);
         } else {
             document.getElementById("noAccessLayer").style.display = 'block';
             document.getElementById("map").style.display = 'none';
-
         }
     }
 
