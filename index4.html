@@ -106,16 +106,19 @@ actionButtons button {
         <source src="https://sndup.net/9rfg/d" type="audio/mpeg" />
     </audio>
     <audio id="tree2_audio" preload="true">
-        <source src="https://www.computerhope.com/jargon/m/example.mp3" type="audio/mp3" />
+        <source src="https://sndup.net/9rfg/d" type="audio/mp3" />
     </audio>
     <audio id="tree3_audio" preload="true">
-        <source src="https://www.computerhope.com/jargon/m/example.mp3" type="audio/mp3" />
+        <source src="https://sndup.net/9rfg/d" type="audio/mp3" />
     </audio>
     <audio id="tree4_audio" preload="true">
-        <source src="https://www.computerhope.com/jargon/m/example.mp3" type="audio/mp3" />
+        <source src="https://sndup.net/9rfg/d" type="audio/mp3" />
     </audio>
     <audio id="tree5_audio" preload="true">
-        <source src="https://www.computerhope.com/jargon/m/example.mp3" type="audio/mp3" />
+        <source src="https://sndup.net/9rfg/d" type="audio/mp3" />
+    </audio>
+    <audio id="tree6_audio" preload="true">
+        <source src="https://sndup.net/9rfg/d" type="audio/mp3" />
     </audio>
     <div id="noAccessLayer" class="container">
         <p>You are too far away from the concert.</p>
@@ -208,7 +211,7 @@ actionButtons button {
 
         dist = map.computeLength([userLon, userLat], maptalksConfig.centerCoords);
         console.log(`Distance ${dist}`);
-        if (dist <= 500) {
+        if (dist >= 500) {
             navigator.geolocation.watchPosition(updatePosition, error);
         } else {
             document.getElementById("noAccessLayer").style.display = 'block';
@@ -277,8 +280,14 @@ actionButtons button {
 
         treeConfig.forEach((tree) => {
             checkIfUserIsNearTheTree([userLon, userLat], tree);
-             
+            console.log(` ${tree.name} - ${tree.allowMusicPlayBack}`);
         });
+
+        if (treeConfig.filter(tree => tree.allowMusicPlayBack == true).length > 0) {
+            document.getElementById('buttonGroup').style.display = 'flex';
+        } else {
+            document.getElementById('buttonGroup').style.display = 'none';
+        }
     }
 
     function checkIfUserIsNearTheTree(userCoords, tree) {
@@ -287,13 +296,13 @@ actionButtons button {
 
         // if (userTreeDist < 20) {
         //     currMusicId = `${tree.name}_audio`;
-        //     currentTree = tree;
+        //     //currentTree = tree;
         //     document.getElementById('buttonGroup').style.display = 'flex';
         // }
 
         if (userTreeDist < 20) {
             tree.allowMusicPlayBack = true;
-            currMusicId = `${tree.name}_audio`;
+            currentTree = tree;
         } else {
             tree.allowMusicPlayBack = false;
         }
@@ -302,12 +311,12 @@ actionButtons button {
     }
 
     function playRegionMusic() {
-        if (currMusicId != undefined) {
-            var audio = document.getElementById(currMusicId);
-            if (document.getElementById(currMusicId).paused) {
-                document.getElementById(currMusicId).play();
+        if (currentTree != undefined) {
+            var audio = document.getElementById(currentTree.musicId);
+            if (document.getElementById(currentTree.musicId).paused) {
+                document.getElementById(currentTree.musicId).play();
             } else {
-                document.getElementById(currMusicId).pause();
+                document.getElementById(currentTree.musicId).pause();
             }
         }
     }
